@@ -15,7 +15,7 @@
 
     <div class="container">
       <nav class="navbar navbar-light bg-faded">
-        <a class="navbar-brand" href="/">Polycurio.us</a>
+        <a class="navbar-brand" href="/"><%= Application.get_env(:faq, :home_name) %></a>
 
         <ul class="nav navbar-nav">
           <li class="nav-item active">

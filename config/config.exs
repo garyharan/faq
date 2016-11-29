@@ -7,6 +7,7 @@ use Mix.Config
 
 # General application configuration
 config :faq,
+  home_name: System.get_env("FAQ_APP_NAME") || "FAQ",
   ecto_repos: [Faq.Repo]
 
 # Configures the endpoint
