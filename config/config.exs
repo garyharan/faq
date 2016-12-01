@@ -15,8 +15,7 @@ config :faq, Faq.Endpoint,
   url: [host: "localhost"],
   secret_key_base: System.get_env("APP_SECRET"),
   render_errors: [view: Faq.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: Faq.PubSub,
-           adapter: Phoenix.PubSub.PG2]
+  pubsub: [name: Faq.PubSub, adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger
 config :logger, :console,
@@ -28,7 +27,6 @@ config :logger, :console,
 import_config "#{Mix.env}.exs"
 
 # %% Coherence Configuration %%   Don't remove this line
-#
 config :coherence,
   user_schema: Faq.User,
   repo: Faq.Repo,
@@ -41,5 +39,4 @@ config :coherence,
 config :coherence, Faq.Coherence.Mailer,
   adapter: Swoosh.Adapters.Mailgun,
   api_key: System.get_env['MAILGUN_API_KEY']
-
 # %% End Coherence Configuration %%
