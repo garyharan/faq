@@ -13,7 +13,7 @@ config :faq,
 # Configures the endpoint
 config :faq, Faq.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: "rHVt0kR346Wc9NdDkKo07xItVX1pzyWAvGVLBo1mp4zjaUkJMH7jhNlhUZtcxyRI",
+  secret_key_base: System.get_env("APP_SECRET"),
   render_errors: [view: Faq.ErrorView, accepts: ~w(html json)],
   pubsub: [name: Faq.PubSub,
            adapter: Phoenix.PubSub.PG2]
@@ -26,3 +26,20 @@ config :logger, :console,
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env}.exs"
+
+# %% Coherence Configuration %%   Don't remove this line
+#
+config :coherence,
+  user_schema: Faq.User,
+  repo: Faq.Repo,
+  module: Faq,
+  logged_out_url: "/",
+  email_from_name: System.get_env["FAQ_APP_ADMINISTRATOR_NAME"],
+  email_from_email: System.get_env["FAQ_APP_ADMINISTRATOR_EMAIL"],
+  opts: [:authenticatable, :recoverable, :trackable, :unlockable_with_token, :registerable]
+
+config :coherence, Faq.Coherence.Mailer,
+  adapter: Swoosh.Adapters.Mailgun,
+  api_key: System.get_env['MAILGUN_API_KEY']
+
+# %% End Coherence Configuration %%

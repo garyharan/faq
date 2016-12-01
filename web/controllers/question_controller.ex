@@ -4,7 +4,7 @@ defmodule Faq.QuestionController do
   alias Faq.Question
 
   def index(conn, _params) do
-    questions = Repo.all(Question)
+    questions = Question |> where([q], not(is_nil(q.answer))) |> Repo.all
     render(conn, "index.html", questions: questions)
   end
 

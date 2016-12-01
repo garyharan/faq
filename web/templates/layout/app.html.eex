@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Hello Faq!</title>
+    <title><%= Application.get_env(:faq, :home_name) %></title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   </head>
 
@@ -17,7 +17,7 @@
       <nav class="navbar navbar-light bg-faded">
         <a class="navbar-brand" href="/"><%= Application.get_env(:faq, :home_name) %></a>
 
-        <ul class="nav navbar-nav">
+        <ul class="nav navbar-nav pull-right">
           <li class="nav-item active">
             <%= link("Questions", to: "/questions") %>
           </li>
@@ -34,6 +34,16 @@
         <%= render @view_module, @view_template, assigns %>
       </main>
 
+      <header class="header" style="padding-top: 15px">
+        <ol class="breadcrumb text-right">
+          <%= if Coherence.current_user(@conn) do %>
+            <%= if @conn.assigns[:remembered] do %>
+              <li style="color: red;">!!</li>
+            <% end %>
+          <% end %>
+          <%= Faq.Coherence.ViewHelpers.coherence_links(@conn, :layout) %>
+        </ol>
+      </header>
     </div> <!-- /container -->
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
   </body>
