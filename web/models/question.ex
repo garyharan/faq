@@ -4,16 +4,15 @@ defmodule Faq.Question do
   schema "questions" do
     field :question, :string
     field :answer, :string
+    field :published_at, Ecto.DateTime
+    field :published, :boolean
 
     timestamps()
   end
 
-  @doc """
-  Builds a changeset based on the `struct` and `params`.
-  """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:question, :answer])
+    |> cast(params, [:question, :answer, :published_at])
     |> validate_required([:question])
   end
 end
