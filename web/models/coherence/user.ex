@@ -5,6 +5,7 @@ defmodule Faq.User do
   schema "users" do
     field :name, :string
     field :email, :string
+    field :role, :string
     coherence_schema
 
     timestamps
