@@ -12,7 +12,7 @@ defmodule Faq.Question do
 
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:question, :answer, :published_at])
+    |> cast(params, [:question, :answer, :published, :published_at])
     |> validate_required([:question])
   end
 end

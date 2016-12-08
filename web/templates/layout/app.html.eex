@@ -24,7 +24,7 @@
           <li>
             <%= link("Ask", to: "/questions/new") %>
           </li>
-          <%= if Coherence.current_user(@conn) && Coherence.current_user(@conn).role == 'admin' do %>
+          <%= if is_admin(@conn) do %>
             <li>
               <%= link('*', to: "/") %>
             </li>

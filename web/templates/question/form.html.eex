@@ -11,7 +11,7 @@
     <%= error_tag f, :question %>
   </div>
 
-  <%= if Coherence.current_user(@conn) do %>
+  <%= if is_admin(@conn) do %>
     <div class="form-group">
       <%= label f, :answer, class: "control-label" %>
       <%= textarea f, :answer, class: "form-control" %>

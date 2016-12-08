@@ -52,6 +52,8 @@ defmodule Faq.Web do
       import Faq.Router.Helpers
       import Faq.ErrorHelpers
       import Faq.Gettext
+
+      import Faq.RoleHelper
     end
   end
 

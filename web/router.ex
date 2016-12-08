@@ -25,7 +25,9 @@ defmodule Faq.Router do
 
     get "/", QuestionController, :index
 
-    resources "/questions", QuestionController
+    resources "/questions", QuestionController do
+      put "/publish", QuestionController, :publish
+    end
   end
 
   scope "/" do

@@ -4,8 +4,10 @@ defmodule Faq.QuestionController do
   alias Faq.Question
 
   def index(conn, _params) do
-    questions = Question |> where([q], not(is_nil(q.answer))) |> Repo.all
-    render(conn, "index.html", questions: questions)
+    questions_list = Question
+                      |> where([q], not(is_nil(q.answer)))
+                      |> Repo.all
+    render(conn, "index.html", questions: questions_list)
   end
 
   def new(conn, _params) do
@@ -40,6 +42,8 @@ defmodule Faq.QuestionController do
   def update(conn, %{"id" => id, "question" => question_params}) do
     question = Repo.get!(Question, id)
     changeset = Question.changeset(question, question_params)
+
+    IEX.pry
 
     case Repo.update(changeset) do
       {:ok, question} ->

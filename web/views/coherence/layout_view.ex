@@ -13,4 +13,6 @@ defmodule Coherence.LayoutView do
   import Faq.ErrorHelpers
   import Faq.Gettext
   import Faq.Coherence.ViewHelpers
+
+  import Faq.RoleHelper
 end
