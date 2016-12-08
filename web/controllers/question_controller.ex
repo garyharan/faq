@@ -1,6 +1,8 @@
 defmodule Faq.QuestionController do
   use Faq.Web, :controller
 
+  import Faq.RoleHelper
+
   alias Faq.Question
 
   def index(conn, _params) do
@@ -56,14 +58,20 @@ defmodule Faq.QuestionController do
   end
 
   def delete(conn, %{"id" => id}) do
-    question = Repo.get!(Question, id)
+    if is_admin(conn) do
+      question = Repo.get!(Question, id)
 
-    # Here we use delete! (with a bang) because we expect
-    # it to always work (and if it does not, it will raise).
-    Repo.delete!(question)
+      # Here we use delete! (with a bang) because we expect
+      # it to always work (and if it does not, it will raise).
+      Repo.delete!(question)
 
-    conn
-    |> put_flash(:info, "Question deleted successfully.")
-    |> redirect(to: question_path(conn, :index))
+      conn
+      |> put_flash(:info, "Question deleted successfully.")
+      |> redirect(to: question_path(conn, :index))
+    else
+      conn
+      |> put_flash(:info, "Unable to delete")
+      |> redirect(to: question_path(conn, :index))
+    end
   end
 end
