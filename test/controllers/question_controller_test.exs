@@ -1,5 +1,5 @@
 defmodule Faq.QuestionControllerTest do
-  use Faq.ConnCase
+  use Faq.ConnCase, async: true
 
   alias Faq.User
 
@@ -14,12 +14,6 @@ defmodule Faq.QuestionControllerTest do
 
   describe "when we are logged in as admin" do
     setup do
-      User.changeset(%User{}, %{name: "test", email: "admin@example.com", password: "test", password_confirmation: "test", role: "admin"})
-        |> Repo.insert!
-
-      admin = Ecto.Query.from(u in User, where: u.role == "admin", limit: 1)
-        |> Repo.one
-
       {:ok, conn: assign(build_conn, :current_user, admin), user: admin}
     end
 
@@ -27,11 +21,11 @@ defmodule Faq.QuestionControllerTest do
       response = get(conn, :index)
       assert html_response(response, 200) =~ "Questions"
     end
-  end
 
-  def admin do
-    query = Ecto.Query.from(u in User, where: u.role == "admin", limit: 1)
-    Repo.one(query)
+    defp admin do
+      query = Ecto.Query.from(u in User, where: u.role == "admin", limit: 1)
+      Repo.one(query)
+    end
   end
 
   # test "lists all entries on index", %{conn: conn} do
