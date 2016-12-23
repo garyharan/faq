@@ -6,10 +6,7 @@ defmodule Faq.QuestionController do
   alias Faq.Question
 
   def index(conn, _params) do
-    questions_list = Question
-                      |> where([q], not(is_nil(q.answer)))
-                      |> Repo.all
-    render(conn, "index.html", questions: questions_list)
+    render(conn, "index.html", questions: find_questions(conn))
   end
 
   def new(conn, _params) do
@@ -45,8 +42,6 @@ defmodule Faq.QuestionController do
     question = Repo.get!(Question, id)
     changeset = Question.changeset(question, question_params)
 
-    IEX.pry
-
     case Repo.update(changeset) do
       {:ok, question} ->
         conn
@@ -72,6 +67,16 @@ defmodule Faq.QuestionController do
       conn
       |> put_flash(:info, "Unable to delete")
       |> redirect(to: question_path(conn, :index))
+    end
+  end
+
+  defp find_questions(conn) do
+    if is_admin(conn) do
+      Question |> Repo.all
+    else
+      Question
+        |> where([q], not(is_nil(q.answer)))
+        |> Repo.all
     end
   end
 end
