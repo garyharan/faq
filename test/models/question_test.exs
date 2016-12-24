@@ -7,8 +7,8 @@ defmodule Faq.QuestionTest do
   @invalid_attrs %{}
 
   def insert_questions(_context) do
-    Question.changeset(%Question{}, %{question: "Unanswered", answer: nil})                                                           |> Repo.insert!
-    Question.changeset(%Question{}, %{question: "Answered",   answer: "My published answer", published_at: Ecto.DateTime.utc(:usec)}) |> Repo.insert!
+    Repo.insert!(%Question{question: "Unanswered", answer: nil})
+    Repo.insert!(%Question{question: "Answered",   answer: "My published answer", published_at: Ecto.DateTime.utc(:usec)})
     :ok
   end
 

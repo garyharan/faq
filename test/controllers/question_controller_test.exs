@@ -4,19 +4,15 @@ defmodule Faq.QuestionControllerTest do
   alias Faq.{User, Question}
 
   defp insert_users(conn) do
-    User.changeset(%User{}, %{name: "test", email: "asdf@example.com", password: "test", password_confirmation: "test", role: "admin"}) |> Repo.insert!
-    User.changeset(%User{}, %{name: "test", email: "fdsa@example.com", password: "test", password_confirmation: "test"}) |> Repo.insert!
+    Repo.insert!(%User{name: "test", email: "asdf@example.com", password: "test", password_confirmation: "test", role: "admin"})
+    Repo.insert!(%User{name: "test", email: "fdsa@example.com", password: "test", password_confirmation: "test"})
 
     {:ok, conn: conn}
   end
 
   defp insert_questions(conn) do
-    # NH proposition
-    # Repo.insert!(%Question{}, %{question: "Unanswered", answer: nil})
-    # Repo.insert!(%Question{}, %{question: "Answered",   answer: "My published answer", published_at: Ecto.DateTime.utc(:usec)})
-
-    Question.changeset(%Question{}, %{question: "Unanswered", answer: nil})                                                           |> Repo.insert!
-    Question.changeset(%Question{}, %{question: "Answered",   answer: "My published answer", published_at: Ecto.DateTime.utc(:usec)}) |> Repo.insert!
+    Repo.insert!(%Question{question: "Unanswered", answer: nil})
+    Repo.insert!(%Question{question: "Answered",   answer: "My published answer", published_at: Ecto.DateTime.utc(:usec)})
 
     {:ok, conn: conn}
   end
