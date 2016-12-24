@@ -3,16 +3,52 @@ defmodule Faq.QuestionTest do
 
   alias Faq.Question
 
-  @valid_attrs %{answer: "some content", question: "some content"}
+  @valid_attrs %{answer: "Why?", question: "It is said that it is because."}
   @invalid_attrs %{}
 
-  test "changeset with valid attributes" do
-    changeset = Question.changeset(%Question{}, @valid_attrs)
-    assert changeset.valid?
+  def insert_questions(_context) do
+    Question.changeset(%Question{}, %{question: "Unanswered", answer: nil})                                                           |> Repo.insert!
+    Question.changeset(%Question{}, %{question: "Answered",   answer: "My published answer", published_at: Ecto.DateTime.utc(:usec)}) |> Repo.insert!
+    :ok
   end
 
-  test "changeset with invalid attributes" do
-    changeset = Question.changeset(%Question{}, @invalid_attrs)
-    refute changeset.valid?
+  describe "changesets" do
+    test "changeset with valid attributes" do
+      changeset = Question.changeset(%Question{}, @valid_attrs)
+      assert changeset.valid?
+    end
+
+    test "changeset with invalid attributes" do
+      changeset = Question.changeset(%Question{}, @invalid_attrs)
+      refute changeset.valid?
+    end
+  end
+
+  describe "scopes" do
+    setup [:insert_questions]
+
+    test "answered responds with answered" do
+      answered = Question |> Question.answered |> Repo.all
+      assert 1 == answered |> Enum.count
+      assert 0 == Enum.find_index(answered, fn q -> q.answer != nil end)
+    end
+
+    test "unanswered responds with unanswered" do
+      unanswered = Question |> Question.unanswered |> Repo.all
+      assert 1 == unanswered |> Enum.count
+      assert 0 == Enum.find_index(unanswered, fn q -> q.answer == nil end)
+    end
+
+    test "published responds with published" do
+      published = Question |> Question.published |> Repo.all
+      assert 1 == published |> Enum.count
+      assert 0 == Enum.find_index(published, fn q -> q.published_at != nil end)
+    end
+
+    test "unpublished responds with unpublished" do
+      unpublished = Question |> Question.unpublished |> Repo.all
+      assert 1 == unpublished |> Enum.count
+      assert 0 == Enum.find_index(unpublished, fn q -> q.published_at == nil end)
+    end
   end
 end

@@ -75,8 +75,8 @@ defmodule Faq.QuestionController do
       Question |> Repo.all
     else
       Question
-        |> where([q], not(is_nil(q.answer)))
-        |> Repo.all
+      |> Question.answered
+      |> Repo.all
     end
   end
 end
