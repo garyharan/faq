@@ -10,4 +10,9 @@ defmodule Faq.QuestionViewTest do
     {:safe, result} = Faq.QuestionView.markdown("leave me alone")
     assert String.contains? result, "leave me alone"
   end
+
+  test "Sends back empty string on nil input" do
+    {:safe, result} = Faq.QuestionView.markdown(nil)
+    assert result == ""
+  end
 end

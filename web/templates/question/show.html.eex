@@ -5,6 +5,10 @@
 
 <h2><%= @question.question %></h2>
 
-<p>
-  <%= markdown(@question.answer) %>
-</p>
+<%= if is_admin(@conn) || @question.published_at do %>
+  <p>
+    <%= markdown(@question.answer) %>
+  </p>
+<% else %>
+  <p><b>Answer will appear once it is published</b></p>
+<% end %>
