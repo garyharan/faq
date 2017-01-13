@@ -16,6 +16,28 @@ config :faq, Faq.Endpoint,
   url: [host: "example.com", port: 80],
   cache_static_manifest: "priv/static/manifest.json"
 
+
+config :faq, Faq.EndPoint,
+  http: [port: {:system, "PORT"}]],
+  url: [scheme: "http", host: "polycurio.us", port: 80],
+  cache_static_manifest: "priv/static/manifest.json",
+  # distillery specifics
+  root: ".",
+  server: true,
+  version: Mix.Project.config[:version]
+
+config :faq, Faq.EndPoint,
+  secret_key_base: System.get_env("SECRET_KEY_BASE")
+
+
+config :faq, Faq.Repo,
+  adapter: Ecto.Adapters.Postgres,
+  username: System.get_env("DB_USERNAME"),
+  password: System.get_env("DB_PASSWORD"),
+  database: System.get_env("DB_DATABASE"),
+  hostname: System.get_env("DB_HOSTNAME"),
+  pool_size: 20
+
 # Do not print debug messages in production
 config :logger, level: :info
 
@@ -48,7 +70,8 @@ config :logger, level: :info
 # If you are doing OTP releases, you need to instruct Phoenix
 # to start the server for all endpoints:
 #
-#     config :phoenix, :serve_endpoints, true
+config :phoenix, :serve_endpoints, true
+
 #
 # Alternatively, you can configure exactly which server to
 # start per endpoint:

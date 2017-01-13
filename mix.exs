@@ -7,7 +7,7 @@ defmodule Faq.Mixfile do
      elixir: "~> 1.2",
      elixirc_paths: elixirc_paths(Mix.env),
      compilers: [:phoenix, :gettext] ++ Mix.compilers,
-     build_embedded: Mix.env == :prod,
+     build_embedded:  Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      aliases: aliases(),
      deps: deps()]
@@ -18,8 +18,7 @@ defmodule Faq.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [mod: {Faq, []},
-     applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex, :coherence]]
+     applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext, :phoenix_ecto, :postgrex, :earmark, :coherence]]
   end
 
   # Specifies which paths to compile per environment.
@@ -39,7 +38,8 @@ defmodule Faq.Mixfile do
      {:gettext, "~> 0.11"},
      {:cowboy, "~> 1.0"},
      {:earmark, "~> 1.0.3"},
-     {:coherence, "~> 0.3.1"}]
+     {:coherence, "~> 0.3.1"},
+     {:distillery, "~> 1.1.0"}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.
