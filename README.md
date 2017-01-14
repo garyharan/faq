@@ -10,4 +10,4 @@ Create the following environment variables:
     export FAQ_APP_NAME="Sous-Vide Cooking FAQ"
     export FAQ_APP_ADMINISTRATOR_NAME="Your name"
     export FAQ_APP_ADMINISTRATOR_EMAIL="your@email.org"
-    export APP_SECRET="generated from $ mix phoenix.gen.secret"
+    export SECRET_KEY_BASE="generated from $ mix phoenix.gen.secret"

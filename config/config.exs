@@ -13,7 +13,7 @@ config :faq,
 # Configures the endpoint
 config :faq, Faq.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: System.get_env("APP_SECRET"),
+  secret_key_base: System.get_env("SECRET_KEY_BASE"),
   render_errors: [view: Faq.ErrorView, accepts: ~w(html json)],
   pubsub: [name: Faq.PubSub, adapter: Phoenix.PubSub.PG2]
 
