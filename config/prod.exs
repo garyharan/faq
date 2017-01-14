@@ -18,7 +18,7 @@ config :faq, Faq.Endpoint,
 
 
 config :faq, Faq.EndPoint,
-  http: [port: {:system, "PORT"}]],
+  http: [port: {:system, "PORT"}],
   url: [scheme: "http", host: "polycurio.us", port: 80],
   cache_static_manifest: "priv/static/manifest.json",
   # distillery specifics
@@ -79,6 +79,5 @@ config :phoenix, :serve_endpoints, true
 #     config :faq, Faq.Endpoint, server: true
 #
 
-# Finally import the config/prod.secret.exs
-# which should be versioned separately.
-import_config "prod.secret.exs"
+# NO I use env variables on HEROKU
+# import_config "prod.secret.exs"
