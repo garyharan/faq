@@ -22,6 +22,20 @@ defmodule Faq.QuestionTest do
       changeset = Question.changeset(%Question{}, @invalid_attrs)
       refute changeset.valid?
     end
+
+    test "changeset includes a published boolean sets the published_at" do
+      changeset = Question.changeset(%Question{}, Map.put(@valid_attrs, :published, true))
+      |> IO.inspect(structs: false, label: :changeset)
+      # save it
+      assert %Ecto.DateTime{} = Ecto.Changeset.get_change(changeset, :published_at)
+    end
+
+    test "changeset does not includes a published boolean does not set the published_at" do
+      changeset = Question.changeset(%Question{}, @valid_attrs)
+      |> IO.inspect(structs: false, label: :changeset)
+      # save it
+      refute Ecto.Changeset.get_change(changeset, :published_at)
+    end
   end
 
   describe "scopes" do

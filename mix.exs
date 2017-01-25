@@ -38,7 +38,9 @@ defmodule Faq.Mixfile do
      {:gettext, "~> 0.11"},
      {:cowboy, "~> 1.0"},
      {:earmark, "~> 1.0.3"},
-     {:coherence, "~> 0.3.1"}]
+     {:coherence, "~> 0.3.1"},
+	   {:mix_test_watch, "~> 0.2", only: :dev}
+     ]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.

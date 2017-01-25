@@ -10,10 +10,17 @@ defmodule Faq.Question do
   end
 
   def changeset(struct, params \\ %{}) do
+    IO.inspect(params, label: :params)
     struct
     |> cast(params, [:question, :answer, :published_at])
     |> validate_required([:question])
+    |> try_put_published_at(params)
   end
+
+  defp try_put_published_at(changeset, %{published: true}) do
+    put_change(changeset, :published_at, Ecto.DateTime.utc)
+  end
+  defp try_put_published_at(changeset, _params), do: changeset
 
   def answered(query) do
     from q in query,
